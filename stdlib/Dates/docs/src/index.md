@@ -331,9 +331,13 @@ function `dayabbr` will error.
 
 ```jldoctest tdate2
 julia> Dates.dayabbr(t;locale="french")
-ERROR: BoundsError: attempt to access 1-element Array{String,1} at index [5]
+ERROR: BoundsError: attempt to access 1-element Vector{String} at index [5]
 Stacktrace:
-[...]
+ [1] getindex at ./array.jl:811 [inlined]
+ [2] dayabbr at /home/kc/julia/usr/share/julia/stdlib/v1.6/Dates/src/query.jl:149 [inlined]
+ [3] #dayabbr#4 at /home/kc/julia/usr/share/julia/stdlib/v1.6/Dates/src/query.jl:151 [inlined]
+ [4] #dayabbr#6 at /home/kc/julia/usr/share/julia/stdlib/v1.6/Dates/src/query.jl:190 [inlined]
+ [5] top-level scope at none:1
 ```
 
 
@@ -403,7 +407,7 @@ julia> dr = Date(2014,1,29):Day(1):Date(2014,2,3)
 Date("2014-01-29"):Day(1):Date("2014-02-03")
 
 julia> collect(dr)
-6-element Array{Date,1}:
+6-element Vector{Date}:
  2014-01-29
  2014-01-30
  2014-01-31
@@ -415,7 +419,7 @@ julia> dr = Date(2014,1,29):Dates.Month(1):Date(2014,07,29)
 Date("2014-01-29"):Month(1):Date("2014-07-29")
 
 julia> collect(dr)
-7-element Array{Date,1}:
+7-element Vector{Date}:
  2014-01-29
  2014-02-28
  2014-03-29
@@ -491,7 +495,7 @@ julia> filter(dr) do x
            Dates.April <= Dates.month(x) <= Dates.Nov &&
            Dates.dayofweekofmonth(x) == 2
        end
-8-element Array{Date,1}:
+8-element Vector{Date}:
  2014-04-08
  2014-05-13
  2014-06-10
